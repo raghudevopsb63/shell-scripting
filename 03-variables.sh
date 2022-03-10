@@ -26,4 +26,3 @@ echo First Value of Array = ${c[0]}
 echo Third Value of Array = ${c[2]}
 echo All Values of Array = ${#c[*]}
 
-
