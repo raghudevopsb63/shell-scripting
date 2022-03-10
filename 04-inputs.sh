@@ -1,6 +1,6 @@
 #!/bin/bash
 
-read -p 'Enter your Name: ' name
+read -p "Enter your Name: " name
 echo "Your Name = $name"
 
 # Special Variables
