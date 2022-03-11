@@ -4,7 +4,7 @@ echo -e "\e[36m Installing Nginx \e[0m"
 yum install nginx -y
 
 echo -e "\e[36m Downloading Nginx Content \e[0m"
-curl -s -L -o /tmp/frontend.zip "https://github.com/roboshop-devops-project/frontend/archive/main.zip"
+curl -s -L -o /tmp/frontend.zip "https://github.com/roboshop-devops-project/frontend/archive/main.zi"
 
 echo -e "\e[36m Cleanup Old Nginx Content and Extract new downloaded archive \e[0m"
 rm -rf /usr/share/nginx/html/*
