@@ -15,9 +15,9 @@
 Print_Message() {
   echo Hello,
   echo Good Morning
-  echo Welcome to DevOps Training
+  echo Welcome to ${1} Training
 }
 
-Print_Message
+Print_Message DevOps
 
 ## Note, Function has always been declared first and then you call function later in the code
