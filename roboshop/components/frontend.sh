@@ -2,11 +2,15 @@
 
 StatCheck() {
   if [ $1 -eq 0 ]; then
-    echo -e "$2 \e[32mSUCCESS\e[0m"
+    echo -e "\e[32mSUCCESS\e[0m"
   else
     echo -e "\e[31mFAILURE\e[0m"
     exit 2
   fi
+}
+
+Print() {
+  echo -e "\e[36m $1 \e[0m"
 }
 
 USER_ID=$(id -u)
@@ -15,15 +19,15 @@ if [ "$USER_ID" -ne 0 ]; then
   exit 1
 fi
 
-echo -e "\e[36m Installing Nginx \e[0m"
+Print "Installing Nginx"
 yum install nginx -y
-StatCheck $? "Nginx Installed - "
+StatCheck $?
 
-echo -e "\e[36m Downloading Nginx Content \e[0m"
+Print "Downloading Nginx Content"
 curl -f -s -L -o /tmp/frontend.zip "https://github.com/roboshop-devops-project/frontend/archive/main.zip"
 StatCheck $?
 
-echo -e "\e[36m Cleanup Old Nginx Content and Extract new downloaded archive \e[0m"
+Print "Cleanup Old Nginx Content and Extract new downloaded archive"
 rm -rf /usr/share/nginx/html/*
 cd /usr/share/nginx/html/
 unzip /tmp/frontend.zip
@@ -33,7 +37,7 @@ rm -rf frontend-main README.md
 mv localhost.conf /etc/nginx/default.d/roboshop.conf
 StatCheck $?
 
-echo -e "\e[36m Starting Nginx \e[0m"
+Print "Starting Nginx"
 systemctl restart nginx
 StatCheck $?
 systemctl enable nginx
