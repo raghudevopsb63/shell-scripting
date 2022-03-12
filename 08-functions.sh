@@ -16,7 +16,7 @@ Print_Message() {
   echo Hello,
   echo Good Morning
   echo Welcome to ${1} Training
-  echo "First Argument in Fucntion = $1"
+  echo "First Argument in Function = $1"
   a=20
   echo "value of a = $a"
   b=20
