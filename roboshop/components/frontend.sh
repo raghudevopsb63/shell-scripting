@@ -2,7 +2,7 @@
 
 StatCheck() {
   if [ $1 -eq 0 ]; then
-    echo -e "\e[32mSUCCESS\e[0m"
+    echo -e "$2 \e[32mSUCCESS\e[0m"
   else
     echo -e "\e[31mFAILURE\e[0m"
     exit 2
@@ -17,10 +17,10 @@ fi
 
 echo -e "\e[36m Installing Nginx \e[0m"
 yum install nginx -y
-StatCheck $?
+StatCheck $? "Nginx Installed - "
 
 echo -e "\e[36m Downloading Nginx Content \e[0m"
-curl -f -s -L -o /tmp/frontend.zip "https://github.com/roboshop-devops-project/frontend/archive/main.zi"
+curl -f -s -L -o /tmp/frontend.zip "https://github.com/roboshop-devops-project/frontend/archive/main.zip"
 StatCheck $?
 
 echo -e "\e[36m Cleanup Old Nginx Content and Extract new downloaded archive \e[0m"
