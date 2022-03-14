@@ -26,7 +26,7 @@ yum install nodejs gcc-c++ -y &>>${LOG_FILE}
 StatCheck $?
 
 Print "Add Application User"
-useraddd ${APP_USER} &>>${LOG_FILE}
+useradd ${APP_USER} &>>${LOG_FILE}
 StatCheck $?
 
 Print "Download App Component"
@@ -34,15 +34,15 @@ curl -f -s -L -o /tmp/catalogue.zip "https://github.com/roboshop-devops-project/
 StatCheck $?
 
 Print "CleanUp Old Content"
-rm -rf /home/roboshop/catalogue &>>${LOG_FILE}
+rm -rf /home/${APP_USER}/catalogue &>>${LOG_FILE}
 StatCheck $?
 
 Print "Extract App Content"
-cd /home/roboshop &>>${LOG_FILE} && unzip -o /tmp/catalogue.zip &>>${LOG_FILE} && mv catalogue-main catalogue &>>${LOG_FILE}
+cd /home/${APP_USER} &>>${LOG_FILE} && unzip -o /tmp/catalogue.zip &>>${LOG_FILE} && mv catalogue-main catalogue &>>${LOG_FILE}
 StatCheck $?
 
 Print "Install App Dependencies"
-cd /home/roboshop/catalogue &>>${LOG_FILE} && npm install &>>${LOG_FILE}
+cd /home/${APP_USER}/catalogue &>>${LOG_FILE} && npm install &>>${LOG_FILE}
 StatCheck $?
 
 
