@@ -2,21 +2,6 @@
 
 source components/common.sh
 
-
-#$ cd /home/roboshop
-#$ unzip /tmp/catalogue.zip
-#$ mv catalogue-main catalogue
-#$ cd /home/roboshop/catalogue
-#$ npm install
-#
-#```
-#
-#1. Update SystemD file with correct IP addresses
-#
-#    Update `MONGO_DNSNAME` with MongoDB Server IP
-#
-#2. Now, lets set up the service with systemctl.
-
 Print "Configure Yum repos"
 curl -fsSL https://rpm.nodesource.com/setup_lts.x | bash - &>>${LOG_FILE}
 StatCheck $?
@@ -52,4 +37,11 @@ Print "Fix App User Permissions"
 chown -R ${APP_USER}:${APP_USER} /home/${APP_USER}
 StatCheck $?
 
+Print "Setup SystemD File"
+sed -i -e 's/MONGO_DNSNAME/mongodb.roboshop.internal/' /home/roboshop/catalogue/systemd.service &>>${LOG_FILE} && mv home/roboshop/catalogue/systemd.service /etc/systemd/system/catalogue.service  &>>${LOG_FILE}
+StatCheck $?
+
+Print "Restart Catalogue Service"
+systemctl daemon-reload &>>${LOG_FILE} && systemctl restart catalogue &>>${LOG_FILE} && systemctl enable catalogue &>>${LOG_FILE}
+StatCheck $?
 
