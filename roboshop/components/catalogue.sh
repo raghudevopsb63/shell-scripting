@@ -1,0 +1,49 @@
+#!/bin/bash
+
+source components/common.sh
+
+
+#$ cd /home/roboshop
+#$ unzip /tmp/catalogue.zip
+#$ mv catalogue-main catalogue
+#$ cd /home/roboshop/catalogue
+#$ npm install
+#
+#```
+#
+#1. Update SystemD file with correct IP addresses
+#
+#    Update `MONGO_DNSNAME` with MongoDB Server IP
+#
+#2. Now, lets set up the service with systemctl.
+
+Print "Configure Yum repos"
+curl -fsSL https://rpm.nodesource.com/setup_lts.x | bash - &>>${LOG_FILE}
+StatCheck $?
+
+Print "Install NodeJS"
+yum install nodejs gcc-c++ -y &>>${LOG_FILE}
+StatCheck $?
+
+Print "Add Application User"
+useraddd ${APP_USER} &>>${LOG_FILE}
+StatCheck $?
+
+Print "Download App Component"
+curl -f -s -L -o /tmp/catalogue.zip "https://github.com/roboshop-devops-project/catalogue/archive/main.zip" &>>${LOG_FILE}
+StatCheck $?
+
+Print "CleanUp Old Content"
+rm -rf /home/roboshop/catlogue &>>${LOG_FILE}
+StatCheck $?
+
+Print "Extract App Content"
+cd /home/roboshop &>>${LOG_FILE} && unzip -o /tmp/catalogue.zip &>>${LOG_FILE} && mv catalogue-main catalogue &>>${LOG_FILE}
+StatCheck $?
+
+Print "Install App Dependencies"
+cd /home/roboshop/catalogue &>>${LOG_FILE} && npm install &>>${LOG_FILE}
+StatCheck $?
+
+
+
