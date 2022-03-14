@@ -13,3 +13,9 @@ catalogue:
 redis:
 	bash components/redis.sh
 
+user:
+	bash components/user.sh
+
+cart:
+	bash components/cart.sh
+
