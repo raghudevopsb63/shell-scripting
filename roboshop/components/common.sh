@@ -22,7 +22,7 @@ rm -f $LOG_FILE
 
 APP_USER=roboshop
 
-APP_SETUP_() {
+APP_SETUP() {
   id ${APP_USER} &>>${LOG_FILE}
   if [ $? -ne 0 ]; then
     Print "Add Application User"
