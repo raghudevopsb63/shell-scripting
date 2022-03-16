@@ -64,3 +64,17 @@ else
   echo "Both are not equal"
 fi
 
+
+x="abc"
+case $x in
+  abc)
+    echo x = abc
+    ;;
+  xyz)
+    echo x = xyz
+    ;;
+  *)
+    echo a is not either xyz or abc
+    ;;
+esac
+
